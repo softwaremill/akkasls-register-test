@@ -6,12 +6,14 @@ import "akkaserverless/annotations.proto";
 
 option java_outer_classname = "EmailsDomain";
 
-// events
+option (akkaserverless.file).value_entity = {
+  name: "Emails"
+  entity_type: "emails"
+  state: "EmailsState"
+};
 
-message EmailAssigned {
+message EmailsState {
   string user_id = 1;
   string password_salt = 2;
   string password_hash = 3;
 }
-
-message EmailReleased {}

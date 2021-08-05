@@ -9,10 +9,10 @@ import "domain/emails_domain.proto";
 option java_outer_classname = "EmailsPublishing";
 
 service EmailsPublishingService {
-  rpc PublishEmailAssigned(domain.EmailAssigned) returns (EmailAssignedMessage) {
+  rpc PublishEmailAssigned(domain.EmailsState) returns (EmailAssignedMessage) {
     option (akkaserverless.method).eventing = {
       in: {
-        event_sourced_entity: "emails";
+        value_entity: "emails";
       }
       out: {
         topic: "emails-assigned";

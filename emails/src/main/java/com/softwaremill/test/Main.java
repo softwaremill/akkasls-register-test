@@ -6,14 +6,12 @@
 package com.softwaremill.test;
 
 import com.akkaserverless.javasdk.AkkaServerless;
-import com.softwaremill.test.domain.EmailsDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.softwaremill.test.MainComponentRegistrations.withGeneratedComponentsAdded;
 
 public final class Main {
-
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
     public static final AkkaServerless SERVICE =
@@ -21,10 +19,6 @@ public final class Main {
             // and is kept up-to-date with any changes in your protobuf definitions.
             // If you prefer, you may remove this wrapper and manually register these components.
             withGeneratedComponentsAdded(new AkkaServerless())
-                    .registerEventSourcedEntity(
-                            EmailsEntity.class,
-                            EmailsApi.getDescriptor().findServiceByName("EmailsService"),
-                            EmailsDomain.getDescriptor())
                     .registerAction(PublishingAction.class, EmailsPublishing.getDescriptor().findServiceByName("EmailsPublishingService"));
 
     public static void main(String[] args) throws Exception {

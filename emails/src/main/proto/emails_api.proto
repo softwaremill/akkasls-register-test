@@ -18,5 +18,10 @@ message RegisterUserResult {
 }
 
 service EmailsService {
+  option (akkaserverless.service) = {
+    type: SERVICE_TYPE_ENTITY
+    component: ".domain.Emails"
+  };
+
   rpc Register(RegisterUserCommand) returns (RegisterUserResult);
 }

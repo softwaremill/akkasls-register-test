@@ -12,7 +12,7 @@ public class PublishingAction {
     private static final Logger LOG = LoggerFactory.getLogger(PublishingAction.class);
 
     @Handler
-    public EmailsPublishing.EmailAssignedMessage publishEmailAssigned(EmailsDomain.EmailAssigned ev, ActionContext ctx) {
+    public EmailsPublishing.EmailAssignedMessage publishEmailAssigned(EmailsDomain.EmailsState ev, ActionContext ctx) {
         String email = ctx.eventSubject().get();
         LOG.info("Publish email assigned for user with email {}", email);
         return EmailsPublishing.EmailAssignedMessage.newBuilder()
