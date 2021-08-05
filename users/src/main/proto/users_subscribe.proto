@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package com.softwaremill.test;
+
+import "akkaserverless/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "users_api.proto";
+
+option java_outer_classname = "UsersSubscribe";
+
+service UsersSubscribeService {
+  rpc WhenEmailAssigned(EmailAssignedMessage) returns (google.protobuf.Empty) {
+    option (akkaserverless.method).eventing.in = {
+      topic: "emails-assigned"
+    };
+  }
+}
+
+message EmailAssignedMessage {
+  string user_id = 1;
+  string email = 2;
+  string password_salt = 3;
+  string password_hash = 4;
+}

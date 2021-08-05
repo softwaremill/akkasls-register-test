@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package com.softwaremill.test;
+
+import "google/protobuf/empty.proto";
+import "akkaserverless/annotations.proto";
+import "google/api/annotations.proto";
+
+option java_outer_classname = "UsersApi";
+
+message CreateUserCommand {
+  string user_id = 1 [(akkaserverless.field).entity_key = true];
+  string email = 2;
+  string password_salt = 3;
+  string password_hash = 4;
+}
+
+message AuthenticateUserCommand {
+  string user_id = 1 [(akkaserverless.field).entity_key = true];
+  string password = 2;
+}
+
+service UsersService {
+  rpc Create(CreateUserCommand) returns (google.protobuf.Empty);
+  rpc Authenticate(AuthenticateUserCommand) returns (google.protobuf.Empty);
+}

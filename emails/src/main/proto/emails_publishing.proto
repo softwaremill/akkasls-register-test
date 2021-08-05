@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package com.softwaremill.test;
+
+import "akkaserverless/annotations.proto";
+
+import "domain/emails_domain.proto";
+
+option java_outer_classname = "EmailsPublishing";
+
+service EmailsPublishingService {
+  rpc PublishEmailAssigned(domain.EmailAssigned) returns (EmailAssignedMessage) {
+    option (akkaserverless.method).eventing = {
+      in: {
+        event_sourced_entity: "emails";
+      }
+      out: {
+        topic: "emails-assigned";
+      }
+    };
+  }
+}
+
+message EmailAssignedMessage {
+  string user_id = 1;
+  string email = 2;
+  string password_salt = 3;
+  string password_hash = 4;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package com.softwaremill.test;
+
+import "google/protobuf/empty.proto";
+import "akkaserverless/annotations.proto";
+import "google/api/annotations.proto";
+
+option java_outer_classname = "EmailsApi";
+
+message RegisterUserCommand {
+  string email = 1 [(akkaserverless.field).entity_key = true];
+  string password = 2;
+}
+
+message RegisterUserResult {
+  string user_id = 1;
+}
+
+service EmailsService {
+  rpc Register(RegisterUserCommand) returns (RegisterUserResult);
+}
