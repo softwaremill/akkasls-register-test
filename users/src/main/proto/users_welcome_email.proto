@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.softwaremill.test;
+
+import "akkaserverless/annotations.proto";
+import "google/protobuf/empty.proto";
+
+import "domain/users_domain.proto";
+
+option java_outer_classname = "UsersWelcomeEmail";
+
+service UsersWelcomeEmailService {
+  rpc Send(domain.UserCreated) returns (google.protobuf.Empty) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "users"
+    };
+  }
+}

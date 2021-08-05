@@ -25,7 +25,8 @@ public final class Main {
                             UsersEntity.class,
                             UsersApi.getDescriptor().findServiceByName("UsersService"),
                             UsersDomain.getDescriptor())
-                    .registerAction(SubscribeAction.class, UsersSubscribe.getDescriptor().findServiceByName("UsersSubscribeService"));
+                    .registerAction(SubscribeAction.class, UsersSubscribe.getDescriptor().findServiceByName("UsersSubscribeService"))
+                    .registerAction(WelcomeEmailAction.class, UsersWelcomeEmail.getDescriptor().findServiceByName("UsersWelcomeEmailService"));
 
     public static void main(String[] args) throws Exception {
         LOG.info("starting the Akka Serverless service");
